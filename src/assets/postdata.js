@@ -1,4 +1,4 @@
-[
+export default[
     {
       name: "Kim Hyun",
       userImage: "https://placeimg.com/100/100/arch",
@@ -29,4 +29,4 @@
       content: "우리집 개는 화장실 물도 내림",
       filter: "lofi"
     }
-  ]
+]

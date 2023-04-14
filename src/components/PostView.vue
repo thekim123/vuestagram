@@ -1,4 +1,5 @@
 <template>
+
   <div class="post">
     <div class="post-header">
       <div class="profile"></div>
@@ -6,11 +7,11 @@
     </div>
     <div class="post-body"></div>
     <div class="post-content">
-      <p>43 Likes</p>
+      <p>{{p.likes}} Likes</p>
       <p>
-        <strong>{{ p.name }}</strong> {{ p.content }}
+        <strong>{{ p.content }}</strong>
       </p>
-      <p class="date">May 15</p>
+      <p class="date">{{p.date}}</p>
     </div>
   </div>
 </template>

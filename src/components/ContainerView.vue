@@ -1,8 +1,9 @@
 <template>
   <div>
-    <PostView :p="postData[0]"/>
-    <PostView :p="postData[1]"/>
-    <PostView :p="postData[2]"/>
+
+    <PostView v-for="(p,i) in postData" :key="i" :p="p"/>
+    <!-- <PostView :postData="postData[1]"/> -->
+    <!-- <PostView :p="postData[2]"/> -->
   </div>
 </template>
 
@@ -12,13 +13,9 @@ import PostView from './PostView.vue';
 export default {
     name: "ContainerView",
     components:{
-        PostView,
+        PostView: PostView,
     },
-    data(){
-        return{
-            p: postData,
-        }
-    },
+
     props:{
         postData: Array,
     }
