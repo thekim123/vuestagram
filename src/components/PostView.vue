@@ -5,11 +5,11 @@
       <div class="profile"></div>
       <span class="profile-name">{{ p.name }}</span>
     </div>
-    <div class="post-body"></div>
+    <div class="post-body" :style="{ backgroundImage: `url(${p.postImage})`}"></div>
     <div class="post-content">
       <p>{{p.likes}} Likes</p>
       <p>
-        <strong>{{ p.content }}</strong>
+        <strong>{{p.name}}</strong> {{ p.content }}
       </p>
       <p class="date">{{p.date}}</p>
     </div>
