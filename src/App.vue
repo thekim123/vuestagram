@@ -8,12 +8,13 @@
     </ul>
   </div>
 
-  <ContainerView :postData="postData"></ContainerView>
+
+  <ContainerView :postData="postData" :step="step"></ContainerView>
   <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile"/>
+      <input @change="upload" type="file" id="file" class="inputfile"/>
       <label for="file" class="input-plus">파일</label>
     </ul>
   </div>
@@ -21,14 +22,16 @@
 </template>
 
 <script>
-import ContainerView from "./components/ContainerView.vue";
+import ContainerView from "./components/ContainerView.vue"
 import postData from "./assets/postdata.js"
-import axios from "axios";
+import axios from 'axios'
 
 export default {
   name: "App",
   data() {
     return {
+      step: 0,
+      count: 0,
       postData: postData,
       clickCount: 0,
     }
@@ -38,16 +41,18 @@ export default {
   },
   methods: {
     more() {
-      axios.get(`https://codingapple1.github.io/vue/more${this.clickCount}.json`)
-          .then(result => {
+      axios.get(`https://codingapple1.github.io/vue/more${this.count}.json`)
+          .then((result) => {
             this.postData.push(result.data);
-            this.clickCount++;
-          });
-
+            this.count++;
+          })
+    },
+    upload(e) {
+      let file = e.target.files;
+      console.log(file);
     }
-
   }
-}
+};
 </script>
 
 <style>
