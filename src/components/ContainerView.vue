@@ -10,36 +10,44 @@
 
     <!-- 필터선택페이지 -->
     <div v-if="step===1">
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="{backgroundImage: `url(${url})`}"></div>
       <div class="filters">
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
+        <FilterBox :url="url" v-for="(f, i) in filterArray" :key="i" :f="f">
+          {{ f }}
+
+        </FilterBox>
       </div>
     </div>
 
     <!-- 글작성페이지 -->
-    <div class="upload-image" v-if="step ===2"></div>
+    <div class="upload-image" v-if="step ===2" :style="{backgroundImage: `url(${url})`}"></div>
     <div class="write">
-      <textarea class="write-box">write!</textarea>
+      <textarea class="write-box" @input="$emit('write', $event.target.value)">write!</textarea>
     </div>
   </div>
 </template>
 
 <script>
-import PostView from './PostView.vue';
+import PostView from './PostView.vue'
+import FilterBox from './FilterBox.vue'
 
 export default {
   name: "ContainerView",
   components: {
     PostView: PostView,
+    FilterBox: FilterBox,
+  },
+  data() {
+    return {
+      selectedFilter: '',
+    }
   },
 
   props: {
     step: Number,
     postData: Array,
+    url: String,
+    filterArray: Array,
   },
 };
 </script>

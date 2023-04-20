@@ -1,15 +1,16 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li @click="cancel">Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step===1" @click="step++">Next</li>
+      <li v-if="step===2" @click="publish()">Publish</li>
     </ul>
   </div>
 
 
-  <ContainerView :postData="postData" :step="step"></ContainerView>
+  <ContainerView @write="myContent= $event" :url="url" :postData="postData" :step="step" :filterArray="filterArray"></ContainerView>
   <button @click="more">더보기</button>
 
   <div class="footer">
@@ -34,12 +35,35 @@ export default {
       count: 0,
       postData: postData,
       clickCount: 0,
+      url: '',
+      myContent:'',
+      filterArray: [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson",
+        "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua",
+        "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"],
     }
   },
+
   components: {
     ContainerView: ContainerView,
   },
   methods: {
+    cancel() {
+      this.step = 0;
+    },
+    publish() {
+      const myPost = {
+        name: 'yh',
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.url,
+        likes: 0,
+        date: "May 15",
+        liked: false,
+        content: this.myContent,
+        filter: "perpetua",
+      };
+      this.postData.unshift(myPost);
+      this.step = 0;
+    },
     more() {
       axios.get(`https://codingapple1.github.io/vue/more${this.count}.json`)
           .then((result) => {
@@ -50,6 +74,11 @@ export default {
     upload(e) {
       let file = e.target.files;
       console.log(file);
+      console.log(file[0].type);
+      let url = URL.createObjectURL(file[0]);
+      console.log(url);
+      this.url = url;
+      this.step = 1;
     }
   }
 };
