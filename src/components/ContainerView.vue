@@ -10,7 +10,7 @@
 
     <!-- 필터선택페이지 -->
     <div v-if="step===1">
-      <div class="upload-image" :style="{backgroundImage: `url(${url})`}"></div>
+      <div :class="filterName" class="upload-image" :style="{backgroundImage: `url(${url})`}"></div>
       <div class="filters">
         <FilterBox :url="url" v-for="(f, i) in filterArray" :key="i" :f="f">
           {{ f }}
@@ -20,7 +20,7 @@
     </div>
 
     <!-- 글작성페이지 -->
-    <div class="upload-image" v-if="step ===2" :style="{backgroundImage: `url(${url})`}"></div>
+    <div  :class="filterName" class="upload-image" v-if="step ===2" :style="{backgroundImage: `url(${url})`}"></div>
     <div class="write">
       <textarea class="write-box" @input="$emit('write', $event.target.value)">write!</textarea>
     </div>
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       selectedFilter: '',
+      filterName:'',
     }
   },
 
@@ -48,6 +49,11 @@ export default {
     postData: Array,
     url: String,
     filterArray: Array,
+  },
+  mounted() {
+    this.emitter.on('발사중', (a) => {
+      this.filterName = a;
+    });
   },
 };
 </script>

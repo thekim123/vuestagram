@@ -9,8 +9,10 @@
     </ul>
   </div>
 
-
-  <ContainerView @write="myContent= $event" :url="url" :postData="postData" :step="step" :filterArray="filterArray"></ContainerView>
+  <h4>아릉하세연 {{ $store.state.name }}님은 {{ $store.state.age}}짤이에양 </h4>
+  <button @click="$store.commit('changeName')">이름 변경하기</button>  &nbsp;&nbsp; <button @click="$store.commit('plusAge')">나이 한살 더먹기</button>
+  <ContainerView @write="myContent= $event" :url="url" :postData="postData" :step="step"
+                 :filterArray="filterArray"></ContainerView>
   <button @click="more">더보기</button>
 
   <div class="footer">
@@ -36,8 +38,9 @@ export default {
       postData: postData,
       clickCount: 0,
       url: '',
-      myContent:'',
-      filterArray: [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson",
+      myContent: '',
+      filterName: '',
+      filterArray: ["aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson",
         "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua",
         "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"],
     }
@@ -59,7 +62,7 @@ export default {
         date: "May 15",
         liked: false,
         content: this.myContent,
-        filter: "perpetua",
+        filter: this.filterName,
       };
       this.postData.unshift(myPost);
       this.step = 0;
@@ -80,7 +83,12 @@ export default {
       this.url = url;
       this.step = 1;
     }
-  }
+  },
+  mounted() {
+    this.emitter.on('발사중', (a) => {
+      this.filterName = a;
+    });
+  },
 };
 </script>
 

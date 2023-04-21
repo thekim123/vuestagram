@@ -1,11 +1,20 @@
-import { createStore } from 'vuex'
+import {createStore} from 'vuex'
 
 const store = createStore({
-    state(){
+    state() {
         return {
             name: 'kim',
+            age: 20,
+        }
+    },
+    mutations: {
+        changeName(state) {
+            state.name = 'park';
+        },
+        plusAge(state) {
+            state.age++;
         }
     },
 })
 
-export default store
+export default store;

@@ -1,7 +1,7 @@
 <template>
   <div :class="f + ' filter-item'" :style="`background-image:url(${url})`">
     <slot></slot>
-    <button>발사</button>
+    <button @click="fire">발사</button>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
     url: String,
     f: String,
   },
+  methods: {
+    fire() {
+      this.emitter.emit('발사중', this.f);
+    },
+  }
 }
 
 
